@@ -1,0 +1,181 @@
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <title>Charts Tester</title>
+</head>
+
+<body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
+    <h1 p style="font-family: Arial">Custom Tracker</h1>
+    <h2 p style="font-family: Arial">Report as at: <span id="datetime"></span></h2>
+    <script>
+        var dt = new Date();
+        document.getElementById("datetime").innerHTML = dt.toLocaleDateString();
+    </script>
+
+    <canvas id="myChart" width="200" height="50"></canvas>
+    <script>
+        var ctx = document.getElementById("myChart");
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["New clients depositing [n=175]", "Traders [n=350]", "Existing clients depositing [n=175]", '', "All clients [n=700]"],
+                datasets: [{    
+                    label: 'Very good',
+                    data: [10, 20, 30, NaN, 20],
+                    backgroundColor: [
+                        'rgba(57, 71, 146, 0.8)',
+                        'rgba(57, 71, 146, 0.8)',
+                        'rgba(57, 71, 146, 0.8)',
+                        'rgba(100, 0, 0, 1.0)',
+                        'rgba(57, 71, 146, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(57, 71, 146, 0.8)',
+                        'rgba(57, 71, 146, 0.8)',
+                        'rgba(57, 71, 146, 0.8)',
+                        'rgba(57, 71, 146, 0.8)',
+                        'rgba(100, 0, 0, 1.0)',
+                        'rgba(57, 71, 146, 0.8)'
+                    ],
+                    //set borderwidth to 0 removes the border  
+                    borderWidth: 0
+                },
+                {
+                    label: 'Good',
+                    data: [20, 20, 20, NaN, 20],
+                    backgroundColor: [
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)'
+                    ],
+                    borderWidth: 0
+                },
+                {
+                    label: 'Average',
+                    data: [20, 20, 20, NaN, 20],
+                    backgroundColor: [
+                        'rgba(190, 196, 151, 0.8)',
+                        'rgba(190, 196, 151, 0.8)',
+                        'rgba(190, 196, 151, 0.8)',
+                        'rgba(190, 196, 151, 0.8)',
+                        'rgba(190, 196, 151, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(190, 196, 151, 0.8)',
+                        'rgba(190, 196, 151, 0.8)',
+                        'rgba(190, 196, 151, 0.8)',
+                        'rgba(190, 196, 151, 0.8)',
+                        'rgba(190, 196, 151, 0.8)'
+                    ],
+                    borderWidth: 0
+                },
+                {
+                    label: 'Poor',
+                    data: [20, 20, 20, NaN, 20],
+                    backgroundColor: [
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)'
+                    ],
+                    borderWidth: 0
+                },
+                {
+                    label: 'Very poor',
+                    data: [30, 20, 10, NaN, 20],
+                    backgroundColor: [
+                        'rgba(173, 56, 16, 0.8)',
+                        'rgba(173, 56, 16, 0.8)',
+                        'rgba(173, 56, 16, 0.8)',
+                        'rgba(173, 56, 16, 0.8)',
+                        'rgba(173, 56, 16, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(173, 56, 16, 0.8)',
+                        'rgba(173, 56, 16, 0.8)',
+                        'rgba(173, 56, 16, 0.8)',
+                        'rgba(173, 56, 16, 0.8)',
+                        'rgba(173, 56, 16, 0.8)'
+                    ],
+                    borderWidth: 0
+                },
+                {
+                    type: 'line',
+                    connectNaNData: false,
+                    label: 'Composite Satisfaction Score',
+                    //remove lineTension to make smooth line
+                    lineTension: 0,
+                    //NaN values are ignored, i.e. not shown on chart
+                    data: [60, 70, 50, NaN, 77],
+                    fill: false,
+                    //updates the size of the data points
+                    pointRadius: 7,
+                    spanGaps: false,
+                    backgroundColor: [
+                        'rgba(254, 153, 0, 0.8)'
+                    ],
+                    //setting last number to 0.0 makes the connector lines transparent
+                    borderColor: [
+                        'rgba(254, 153, 0, 0.0)'
+                    ],
+                }
+                ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    fontSize: 14,
+                    text: 'How would you rate this provider overall?'
+                },
+                scales: {
+                    yAxes: [{
+                        stacked: true,
+                        ticks: {
+                        //beginAtZero: true
+                        //below code gives 0-100% percentage y-axis  
+                        min: 0,
+                        max: 100,
+                        callback: function(value) {
+                            return value + "%"                          
+                        }
+                        },
+                        scaleLabel: {
+                            display: true
+                        }
+                    }],
+                    xAxes: [{
+                        //change to false to create waterfall
+                        stacked: true,
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+
+                },
+
+            },
+        });
+    </script>
+
+</body>
+
+</html>

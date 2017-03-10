@@ -1,0 +1,139 @@
+<head>
+    <meta http-equiv="<Content-Ty></Content-Ty>pe" content="text/html; charset=iso-8859-1" />
+    <title>Charts Tester</title>
+</head>
+
+<body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+    <h1 p style="font-family: Arial">Custom Tracker</h1>
+    <h2 p style="font-family: Arial">Report as at: <span id="datetime"></span></h2>
+    <script>
+        var dt = new Date();
+        document.getElementById("datetime").innerHTML = dt.toLocaleDateString();
+    </script>
+
+    <canvas id="myChart" width="200" height="50"></canvas>
+    <script>
+        var ctx = document.getElementById("myChart");
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["2013 [n=175]", "2014 [n=350]", "2015 [n=175]", "2016 [n=700]", "2017 [n=700]"],
+                datasets: [{
+                    label: 'Provider A',
+                    fill: false,
+                    //lineTension: 0,
+                    data: [59, 74, 85, 84, 56],
+                    backgroundColor: [
+                        'rgba(57, 71, 146, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(57, 71, 146, 0.8)'
+                    ],
+                    //set borderwidth to 0 removes the border (in legend)
+                    borderWidth: 0
+                },
+                {
+                    label: 'Provider B',
+                    fill: false,
+                    //lineTension: 0,
+                    data: [59, 67, 50, 78, 74],
+                    backgroundColor: [
+                        'rgba(189, 188, 232, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(189, 188, 232, 0.8)'
+                    ],
+                    borderWidth: 0
+                },
+                {
+                    label: 'Provider C',
+                    fill: false,
+                    //lineTension: 0,
+                    data: [59, 69, 58, 67, 68],
+                    backgroundColor: [
+                        'rgba(190, 196, 151, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(190, 196, 151, 0.8)'
+                    ],
+                    borderWidth: 0
+                },
+                {
+                    label: 'Provider D',
+                    fill: false,
+                    //lineTension: 0,
+                    data: [67, 85, 37, 55, 47],
+                    backgroundColor: [
+                        'rgba(230, 182, 158, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(230, 182, 158, 0.8)'
+                    ],
+                    borderWidth: 0
+                },
+                {
+                    label: 'Provider E',
+                    fill: false,
+                    //lineTension: 0,
+                    data: [78, 87, 58, 76, 59],
+                    backgroundColor: [
+                        'rgba(173, 56, 16, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(173, 56, 16, 0.8)'
+                    ],
+                    borderWidth: 0
+                },
+                ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    fontSize: 14,
+                    text: 'How would you rate this provider overall? Trend in Composite Satisfaction Score*'
+                },
+                legend: {
+                    display: true
+                    //position: 'right'
+                },
+                scales: {
+                    yAxes: [{
+                        stacked: false,
+                        ticks: {
+                            //beginAtZero: true,
+                            //below code gives 0-100% percentage y-axis  
+                            min: 0,
+                            max: 100,
+                            callback: function (value) {
+                                return value + "%"
+                            }
+                        },
+                        scaleLabel: {
+                            display: true
+                        }
+                    }],
+                    xAxes: [{
+                        //change to false to create waterfall
+                        stacked: true,
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+
+                },
+
+            },
+        });
+    </script>
+
+</body>
+
+<footer>
+    <p>
+        <font face="Arial" size="2" color="grey">*Footnote</[p]>
+</footer>
+
+</html>
