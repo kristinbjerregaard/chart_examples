@@ -21,7 +21,28 @@
             type: 'bar',
             data: {
                 labels: ["New clients depositing [n=175]", "Traders [n=350]", "Existing clients depositing [n=175]", '', "All clients [n=700]"],
-                datasets: [{    
+                datasets: [
+                    {
+                    type: 'line',
+                    connectNaNData: false,
+                    label: 'Composite Satisfaction Score',
+                    //remove lineTension to make smooth line
+                    lineTension: 0,
+                    //NaN values are ignored, i.e. not shown on chart
+                    data: [60, 70, 50, NaN, 77],
+                    fill: false,
+                    //updates the size of the data points
+                    pointRadius: 7,
+                    spanGaps: false,
+                    backgroundColor: [
+                        'rgba(254, 153, 0, 0.8)'
+                    ],
+                    //setting last number to 0.0 makes the connector lines transparent
+                    borderColor: [
+                        'rgba(254, 153, 0, 0.0)'
+                    ],
+                },
+                {    
                     label: 'Very good',
                     data: [10, 20, 30, NaN, 20],
                     backgroundColor: [
@@ -117,26 +138,6 @@
                         'rgba(173, 56, 16, 0.8)'
                     ],
                     borderWidth: 0
-                },
-                {
-                    type: 'line',
-                    connectNaNData: false,
-                    label: 'Composite Satisfaction Score',
-                    //remove lineTension to make smooth line
-                    lineTension: 0,
-                    //NaN values are ignored, i.e. not shown on chart
-                    data: [60, 70, 50, NaN, 77],
-                    fill: false,
-                    //updates the size of the data points
-                    pointRadius: 7,
-                    spanGaps: false,
-                    backgroundColor: [
-                        'rgba(254, 153, 0, 0.8)'
-                    ],
-                    //setting last number to 0.0 makes the connector lines transparent
-                    borderColor: [
-                        'rgba(254, 153, 0, 0.0)'
-                    ],
                 }
                 ]
             },
