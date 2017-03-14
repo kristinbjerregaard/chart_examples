@@ -27,16 +27,16 @@
                     if (!meta.hidden) {
                         meta.data.forEach(function (element, index) {
                             // Draw the text in black, with the specified font
-                            ctx.fillStyle = 'rgb(0, 0, 0)';
+                            ctx.fillStyle = 'rgb(64, 64, 64)';
 
-                            var fontSize = 16;
+                            var fontSize = 14;
                             var fontStyle = 'normal';
-                            var fontFamily = 'Helvetica Neue';
+                            var fontFamily = 'Arial';
                             ctx.font = Chart.helpers.fontString(fontSize, fontStyle,
                                 fontFamily);
 
                             // Just naively convert to string for now
-                            var dataString = dataset.data[index].toString();
+                            var dataString = (chart.data.datasets[i].data[index]) > 2.99 ? chart.data.datasets[i].data[index].toString() + "%" : "";
 
                             // Make sure alignment settings are correct
                             ctx.textAlign = 'center';
@@ -56,95 +56,96 @@
             data: {
                 labels: ["Very poor", "Poor", "Average", "Good", "Very good"],
                 datasets: [{
-                        label: 'New clients depositing [n=175]',
-                        data: [10, 19, 3, 0, 5],
-                        backgroundColor: [
-                            'rgba(57, 71, 146, 0.8',
-                            'rgba(57, 71, 146, 0.8',
-                            'rgba(57, 71, 146, 0.8',
-                            'rgba(57, 71, 146, 0.8',
-                            'rgba(57, 71, 146, 0.8',
-                            'rgba(57, 71, 146, 0.8'
-                        ],
-                        borderColor: [
-                            'rgba(57, 71, 146, 0.8',
-                            'rgba(57, 71, 146, 0.8',
-                            'rgba(57, 71, 146, 0.8',
-                            'rgba(57, 71, 146, 0.8',
-                            'rgba(57, 71, 146, 0.8',
-                            'rgba(57, 71, 146, 0.8'
-                        ],
-                        borderWidth: 0
-                    },
-                    {
-                        label: 'Traders [n=350]',
-                        data: [10, 19, 3, 0, 5],
-                        backgroundColor: [
-                            'rgba(102, 204, 0, 0.8',
-                            'rgba(102, 204, 0, 0.8',
-                            'rgba(102, 204, 0, 0.8',
-                            'rgba(102, 204, 0, 0.8',
-                            'rgba(102, 204, 0, 0.8',
-                            'rgba(102, 204, 0, 0.8'
-                        ],
-                        borderColor: [
-                            'rgba(102, 204, 0,0.8',
-                            'rgba(102, 204, 0, 0.8',
-                            'rgba(102, 204, 0, 0.8',
-                            'rgba(102, 204, 0, 0.8',
-                            'rgba(102, 204, 0, 0.8',
-                            'rgba(102, 204, 0, 0.8'
-                        ],
-                        borderWidth: 0
-                    },
-                    {
-                        label: 'Existing clients depositing [n=175]',
-                        data: [15, 19, 3, 5, 2, 3],
-                        backgroundColor: [
-                            'rgba(0, 128, 240, 0.8',
-                            'rgba(0, 128, 240, 0.8',
-                            'rgba(0, 128, 240, 0.8',
-                            'rgba(0, 128, 240, 0.8',
-                            'rgba(0, 128, 240, 0.8',
-                            'rgba(0, 128, 240, 0.8'
-                        ],
-                        borderColor: [
-                            'rgba(0, 128, 240, 0.8',
-                            'rgba(0, 128, 240, 0.8',
-                            'rgba(0, 128, 240, 0.8',
-                            'rgba(0, 128, 240, 0.8',
-                            'rgba(0, 128, 240, 0.8',
-                            'rgba(0, 128, 240, 0.8'
-                        ],
-                        borderWidth: 0
-                    },
-                    {
-                        label: 'All clients [n=700]',
-                        data: [10, 19, 3, 0, 5],
-                        backgroundColor: [
-                            'rgba(128, 128, 128, 0.8',
-                            'rgba(128, 128, 128, 0.8',
-                            'rgba(128, 128, 128, 0.8',
-                            'rgba(128, 128, 128, 0.8',
-                            'rgba(128, 128, 128, 0.8',
-                            'rgba(128, 128, 128, 0.8'
-                        ],
-                        borderColor: [
-                            'rgba(128, 128, 128, 0.8',
-                            'rgba(128, 128, 128, 0.8',
-                            'rgba(128, 128, 128, 0.8',
-                            'rgba(128, 128, 128, 0.8',
-                            'rgba(128, 128, 128, 0.8',
-                            'rgba(128, 128, 128, 0.8'
-                        ],
-                        borderWidth: 0
-                    },
+                    label: 'New clients depositing [n=175]',
+                    data: [10, 19, 3, 0, 5],
+                    pointHoverBackgroundColor: 'rgba(57, 71, 146, 0.8',
+                    backgroundColor: [
+                        'rgba(58, 62, 150, 0.8',
+                        'rgba(58, 62, 150, 0.8',
+                        'rgba(58, 62, 150, 0.8',
+                        'rgba(58, 62, 150, 0.8',
+                        'rgba(58, 62, 150, 0.8',
+                        'rgba(58, 62, 150, 0.8'
+                    ],
+                    borderColor: [
+                        'rgba(58, 62, 150, 0.8',
+                        'rgba(58, 62, 150, 0.8',
+                        'rgba(58, 62, 150, 0.8',
+                        'rgba(58, 62, 150, 0.8',
+                        'rgba(58, 62, 150, 0.8',
+                        'rgba(58, 62, 150, 0.8'
+                    ],
+                    borderWidth: 0
+                },
+                {
+                    label: 'Existing clients depositing [n=175]',
+                    data: [10, 19, 3, 0, 5],
+                    backgroundColor: [
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(92, 203, 9, 0.8'
+                    ],
+                    borderColor: [
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(92, 203, 9, 0.8'
+                    ],
+                    borderWidth: 0
+                },
+                {
+                    label: 'Traders [n=350]',
+                    data: [15, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(24, 184, 237, 0.8'
+                    ],
+                    borderColor: [
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(24, 184, 237, 0.8'
+                    ],
+                    borderWidth: 0
+                },
+                {
+                    label: 'All clients [n=700]',
+                    data: [10, 19, 3, 0, 5],
+                    backgroundColor: [
+                        'rgba(128, 128, 128, 0.8',
+                        'rgba(128, 128, 128, 0.8',
+                        'rgba(128, 128, 128, 0.8',
+                        'rgba(128, 128, 128, 0.8',
+                        'rgba(128, 128, 128, 0.8',
+                        'rgba(128, 128, 128, 0.8'
+                    ],
+                    borderColor: [
+                        'rgba(128, 128, 128, 0.8',
+                        'rgba(128, 128, 128, 0.8',
+                        'rgba(128, 128, 128, 0.8',
+                        'rgba(128, 128, 128, 0.8',
+                        'rgba(128, 128, 128, 0.8',
+                        'rgba(128, 128, 128, 0.8'
+                    ],
+                    borderWidth: 0
+                },
                 ]
             },
             options: {
                 title: {
                     display: true,
-                    fontSize: 14,
+                    fontSize: 18,
                     text: 'How would you rate this provider overall?'
                 },
                 scales: {
