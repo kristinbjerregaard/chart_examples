@@ -5,7 +5,7 @@
 
 <body>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
+    <script src="Chart.bundle.min.js"></script>
     <h1 p style="font-family: Arial">Custom Tracker</h1>
     <h2 p style="font-family: Arial">Report as at: <span id="datetime"></span></h2>
     <script>
@@ -15,13 +15,196 @@
 
     <canvas id="myChart" width="200" height="50"></canvas>
     <script>
-        var ctx = document.getElementById("myChart");
+        //var ctx = document.getElementById("myChart");
+        var ctx = document.getElementById("myChart").getContext("2d");
+        // Define a plugin to provide data labels
+        Chart.plugins.register({
+            afterDatasetsDraw: function (chart, easing) {
+                // To only draw at the end of animation, check for easing === 1
+                var ctx = chart.ctx;
 
+                var meta = chart.getDatasetMeta(0);
+                if (!meta.hidden) {
+                    meta.data.forEach(function (element, index) {
+                        // Draw the text in black, with the specified font
+                        ctx.fillStyle = 'rgb(254, 254, 254)';
+
+                        var fontSize = 14;
+                        var fontStyle = 'normal';
+                        var fontFamily = 'Helvetica';
+                        ctx.font = Chart.helpers.fontString(fontSize, fontStyle,
+                            fontFamily);
+
+                        // Just naively convert to string for now, adds % sign at the end, hides if values lower than 3%
+                        var dataString = (chart.data.datasets[0].data[index]) > 2.99 ? chart.data.datasets[0].data[index].toString() + "%" : "";
+
+                        // Make sure alignment settings are correct
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'top';
+
+                        var padding = -15;
+                        var position = element.tooltipPosition();
+                        ctx.fillText(dataString, position.x, position.y - (fontSize / 2) -
+                            padding);
+                    });
+                }
+                var meta = chart.getDatasetMeta(0);
+                if (!meta.hidden) {
+                    meta.data.forEach(function (element, index) {
+                        // Draw the text in black, with the specified font
+                        ctx.fillStyle = 'rgb(254, 254, 254)';
+
+                        var fontSize = 14;
+                        var fontStyle = 'normal';
+                        var fontFamily = 'Helvetica';
+                        ctx.font = Chart.helpers.fontString(fontSize, fontStyle,
+                            fontFamily);
+
+                        // Just naively convert to string for now, adds % sign at the end, hides if values lower than 3%
+                        var dataString = (chart.data.datasets[0].data[index]) > 2.99 ? chart.data.datasets[0].data[index].toString() + "%" : "";
+
+                        // Make sure alignment settings are correct
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'top';
+
+                        var padding = -15;
+                        var position = element.tooltipPosition();
+                        ctx.fillText(dataString, position.x, position.y - (fontSize / 2) -
+                            padding);
+                    });
+                }
+                var meta1 = chart.getDatasetMeta(1);
+                if (!meta1.hidden) {
+                    meta1.data.forEach(function (element, index) {
+                        // Draw the text in black, with the specified font
+                        ctx.fillStyle = 'rgb(64, 64, 64)';
+
+                        var fontSize = 14;
+                        var fontStyle = 'normal';
+                        var fontFamily = 'Helvetica';
+                        ctx.font = Chart.helpers.fontString(fontSize, fontStyle,
+                            fontFamily);
+
+                        // Just naively convert to string for now, adds % sign at the end, hides if values lower than 3%
+                        var dataString = (chart.data.datasets[1].data[index]) > 2.99 ? chart.data.datasets[1].data[index].toString() + "%" : "";
+
+                        // Make sure alignment settings are correct
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'top';
+
+                        var padding = -15;
+                        var position = element.tooltipPosition();
+                        ctx.fillText(dataString, position.x, position.y - (fontSize / 2) -
+                            padding);
+                    });
+                }
+                var meta2 = chart.getDatasetMeta(2);
+                if (!meta2.hidden) {
+                    meta2.data.forEach(function (element, index) {
+                        // Draw the text in black, with the specified font
+                        ctx.fillStyle = 'rgb(64, 64, 64)';
+
+                        var fontSize = 14;
+                        var fontStyle = 'normal';
+                        var fontFamily = 'Helvetica';
+                        ctx.font = Chart.helpers.fontString(fontSize, fontStyle,
+                            fontFamily);
+
+                        // Just naively convert to string for now, adds % sign at the end, hides if values lower than 3%
+                        var dataString = (chart.data.datasets[2].data[index]) > 2.99 ? chart.data.datasets[2].data[index].toString() + "%" : "";
+
+                        // Make sure alignment settings are correct
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'top';
+
+                        var padding = -15;
+                        var position = element.tooltipPosition();
+                        ctx.fillText(dataString, position.x, position.y - (fontSize / 2) -
+                            padding);
+                    });
+                }
+                var meta3 = chart.getDatasetMeta(3);
+                if (!meta3.hidden) {
+                    meta3.data.forEach(function (element, index) {
+                        // Draw the text in black, with the specified font
+                        ctx.fillStyle = 'rgb(30, 30, 30)';
+
+                        var fontSize = 14;
+                        var fontStyle = 'normal';
+                        var fontFamily = 'Helvetica';
+                        ctx.font = Chart.helpers.fontString(fontSize, fontStyle,
+                            fontFamily);
+
+                        // Just naively convert to string for now, adds % sign at the end, hides if values lower than 3%
+                        var dataString = (chart.data.datasets[3].data[index]) > 2.99 ? chart.data.datasets[3].data[index].toString() + "%" : "";
+
+                        // Make sure alignment settings are correct
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'top';
+
+                        var padding = -15;
+                        var position = element.tooltipPosition();
+                        ctx.fillText(dataString, position.x, position.y - (fontSize / 2) -
+                            padding);
+                    });
+                }
+                var meta4 = chart.getDatasetMeta(4);
+                if (!meta4.hidden) {
+                    meta4.data.forEach(function (element, index) {
+                        // Draw the text in black, with the specified font
+                        ctx.fillStyle = 'rgb(254, 254, 254)';
+
+                        var fontSize = 14;
+                        var fontStyle = 'normal';
+                        var fontFamily = 'Helvetica';
+                        ctx.font = Chart.helpers.fontString(fontSize, fontStyle,
+                            fontFamily);
+
+                        // Just naively convert to string for now, adds % sign at the end, hides if values lower than 3%
+                        var dataString = (chart.data.datasets[4].data[index]) > 2.99 ? chart.data.datasets[4].data[index].toString() + "%" : "";
+
+                        // Make sure alignment settings are correct
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'top';
+
+                        var padding = -15;
+                        var position = element.tooltipPosition();
+                        ctx.fillText(dataString, position.x, position.y - (fontSize / 2) -
+                            padding);
+                    });
+                }
+                var meta5 = chart.getDatasetMeta(5);
+                if (!meta5.hidden) {
+                    meta5.data.forEach(function (element, index) {
+                        // Draw the text in black, with the specified font
+                        ctx.fillStyle = 'rgb(254, 153, 0)';
+
+                        var fontSize = 16;
+                        var fontStyle = 'bold';
+                        var fontFamily = 'Helvetica';
+                        ctx.font = Chart.helpers.fontString(fontSize, fontStyle,
+                            fontFamily);
+
+                        // Just naively convert to string for now
+                        var dataString = chart.data.datasets[5].data[index].toString() + "%";
+
+                        // Make sure alignment settings are correct
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+
+                        var padding = 10;
+                        var position = element.tooltipPosition();
+                        ctx.fillText(dataString, position.x, position.y - (fontSize / 2) -
+                            padding);
+                    });
+                }
+            }
+        });
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ["New clients depositing [n=175]", "Traders [n=350]", "Existing clients depositing [n=175]", '', "All clients [n=700]"],
-                datasets: [{    
+                labels: ["New clients depositing [n=175]", "Existing clients depositing [n=175]", "Traders [n=350]", '', "All clients [n=700]"],
+                datasets: [{
                     label: 'Very good',
                     data: [10, 20, 30, NaN, 20],
                     backgroundColor: [
@@ -32,15 +215,15 @@
                         'rgba(57, 71, 146, 0.8)'
                     ],
                     borderColor: [
-                        'rgba(57, 71, 146, 0.8)',
-                        'rgba(57, 71, 146, 0.8)',
-                        'rgba(57, 71, 146, 0.8)',
-                        'rgba(57, 71, 146, 0.8)',
-                        'rgba(100, 0, 0, 1.0)',
-                        'rgba(57, 71, 146, 0.8)'
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(255, 255, 255, 0.8)'
                     ],
                     //set borderwidth to 0 removes the border  
-                    borderWidth: 0
+                    borderWidth: 1
                 },
                 {
                     label: 'Good',
@@ -53,13 +236,13 @@
                         'rgba(189, 188, 232, 0.8)'
                     ],
                     borderColor: [
-                        'rgba(189, 188, 232, 0.8)',
-                        'rgba(189, 188, 232, 0.8)',
-                        'rgba(189, 188, 232, 0.8)',
-                        'rgba(189, 188, 232, 0.8)',
-                        'rgba(189, 188, 232, 0.8)'
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(255, 255, 255, 0.8)'
                     ],
-                    borderWidth: 0
+                    borderWidth: 1
                 },
                 {
                     label: 'Average',
@@ -72,13 +255,13 @@
                         'rgba(190, 196, 151, 0.8)'
                     ],
                     borderColor: [
-                        'rgba(190, 196, 151, 0.8)',
-                        'rgba(190, 196, 151, 0.8)',
-                        'rgba(190, 196, 151, 0.8)',
-                        'rgba(190, 196, 151, 0.8)',
-                        'rgba(190, 196, 151, 0.8)'
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(255, 255, 255, 0.8)'
                     ],
-                    borderWidth: 0
+                    borderWidth: 1
                 },
                 {
                     label: 'Poor',
@@ -91,13 +274,13 @@
                         'rgba(230, 182, 158, 0.8)'
                     ],
                     borderColor: [
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(255, 255, 255, 0.8)',
                         'rgba(230, 182, 158, 0.8)',
-                        'rgba(230, 182, 158, 0.8)',
-                        'rgba(230, 182, 158, 0.8)',
-                        'rgba(230, 182, 158, 0.8)',
-                        'rgba(230, 182, 158, 0.8)'
+                        'rgba(255, 255, 255, 0.8)'
                     ],
-                    borderWidth: 0
+                    borderWidth: 1
                 },
                 {
                     label: 'Very poor',
@@ -110,13 +293,13 @@
                         'rgba(173, 56, 16, 0.8)'
                     ],
                     borderColor: [
-                        'rgba(173, 56, 16, 0.8)',
-                        'rgba(173, 56, 16, 0.8)',
-                        'rgba(173, 56, 16, 0.8)',
-                        'rgba(173, 56, 16, 0.8)',
-                        'rgba(173, 56, 16, 0.8)'
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(255, 255, 255, 0.8)'
                     ],
-                    borderWidth: 0
+                    borderWidth: 1
                 },
                 {
                     type: 'line',
@@ -143,20 +326,20 @@
             options: {
                 title: {
                     display: true,
-                    fontSize: 14,
+                    fontSize: 18,
                     text: 'How would you rate this provider overall?'
                 },
                 scales: {
                     yAxes: [{
                         stacked: true,
                         ticks: {
-                        //beginAtZero: true
-                        //below code gives 0-100% percentage y-axis  
-                        min: 0,
-                        max: 100,
-                        callback: function(value) {
-                            return value + "%"                          
-                        }
+                            //beginAtZero: true
+                            //below code gives 0-100% percentage y-axis  
+                            min: 0,
+                            max: 100,
+                            callback: function (value) {
+                                return value + "%"
+                            }
                         },
                         scaleLabel: {
                             display: true
