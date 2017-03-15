@@ -1,95 +1,148 @@
 <!DOCTYPE html>
+<meta charset="utf-8">
 <style>
-    .axis .domain {
-        display: none;
+    body {
+        font-family: "Helvetica Neue", Helvetica, Arial, Helvetica;
+        width: 700px;
+        height: 900px;
+        position: left;
+    }
+
+    svg {
+        width: 100%;
+        height: 100%;
+        position: center;
+    }
+    /*makes x-axis line filled without color*/
+
+    .axis path,
+    .axis line {
+        fill: none;
     }
 </style>
-<svg width="700" height="900"></svg>
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script>
-    var svg = d3.select("svg"),
-        margin = { top: 20, right: 20, bottom: 30, left: 40 },
-        width = +svg.attr("width") - margin.left - margin.right,
-        height = +svg.attr("height") - margin.top - margin.bottom,
-        g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var x = d3.scaleBand()
-        .rangeRound([0, width])
-        .paddingInner(0.05)
-        .align(0.1);
+<body>
 
-    var y = d3.scaleLinear()
-        .rangeRound([height, 0]);
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.7.0/d3-legend.min.js"></script>
+    <script>
+        function wrap(text, width) {
+            text.each(function () {
+                var text = d3.select(this),
+                    words = text.text().split(/\s+/).reverse(),
+                    word,
+                    line = [],
+                    lineNumber = 0,
+                    lineHeight = 1.1, // ems
+                    y = text.attr("y"),
+                    dy = parseFloat(text.attr("dy")),
+                    tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+                while (word = words.pop()) {
+                    line.push(word);
+                    tspan.text(line.join(" "));
+                    if (tspan.node().getComputedTextLength() > width) {
+                        line.pop();
+                        tspan.text(line.join(" "));
+                        line = [word];
+                        tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                    }
+                }
+            });
+        }
 
-    var z = d3.scaleOrdinal()
-        .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+        dataset = [
+            { label: "To Be Completed", "2016 Retirement Planner Report with very long label": 10, "2016 AMP Capital SMSF Custom": 0, "2016 Australia FX Report": 0, "2016 Margin Lending Planner": 40, "2016 FPA Custom Trackers": 10 },
+            { label: "Completed", "2016 Retirement Planner Report with very long label": 0, "2016 AMP Capital SMSF Custom": 10, "2016 Australia FX Report": 20, "2016 Margin Lending Planner": 0, "2016 FPA Custom Trackers": 0 },
+        ];
 
-    d3.csv("StackedDashboardD.csv", function (d, i, columns) {
-        for (i = 1, t = 0; i < columns.length; ++i) t += d[columns[i]] = +d[columns[i]];
-        d.total = t;
-        return d;
-    }, function (error, data) {
-        if (error) throw error;
+        var margin = { top: 40, right: 231, bottom: 140, left: 40 },
+            width = 1000 - margin.left - margin.right,
+            height = 800 - margin.top - margin.bottom;
+        var x = d3.scale.ordinal()
+            .rangeRoundBands([0, width], .1, .3);
+        var y = d3.scale.linear()
+            .rangeRound([height, 100]); //max height of y-axis set at 100 to represent 100%
+        var colorRange = d3.scale.category20();
+        var color = d3.scale.ordinal()
+            .range(colorRange.range());
+        var xAxis = d3.svg.axis()
+            .scale(x)
+            .orient("bottom");
 
-        var keys = data.columns.slice(1);
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left")
+            .tickFormat(d3.format(".2s"));
+        var svg = d3.select("body").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        var divTooltip = d3.select("body").append("div").attr("class", "toolTip");
+        color.domain(d3.keys(dataset[0]).filter(function (key) { return key !== "label"; }));
 
-        data.sort(function (a, b) { return b.total - a.total; });
-        x.domain(data.map(function (d) { return d.State; }));
-        y.domain([0, d3.max(data, function (d) { return d.total; })]).nice();
-        z.domain(keys);
+        dataset.forEach(function (d) {
+            var y0 = 0;
+            var order = color.domain().map(function (d) { return d; }).
+                sort(function (a, b) { return +d[b] - +d[a]; }); //sorting values 
+            //sort(function (a, b) { return d3.descending(+d[b] - +d[a]); }); //would stack in descending order   
+            d.values = order.map(function (name) { return { name: name, y0: y0, y1: y0 += +d[name] }; }); //stacked by sorting
+            d.total = d.values[d.values.length - 1].y1;
+        });
 
-        g.append("g")
-            .selectAll("g")
-            .data(d3.stack().keys(keys)(data))
-            .enter().append("g")
-            .attr("fill", function (d) { return z(d.key); })
-            .selectAll("rect")
-            .data(function (d) { return d; })
-            .enter().append("rect")
-            .attr("x", function (d) { return x(d.data.State); })
-            .attr("y", function (d) { return y(d[1]); })
-            .attr("height", function (d) { return y(d[0]) - y(d[1]); })
-            .attr("width", x.bandwidth())
+        dataset.sort(function (a, b) { return b.total - a.total; }); //sorting, probably not needed
 
-.selectAll("text")
-.data(d3.stack().keys(keys)(data))
-  .enter()
-  .append("svg:text")
-  .attr("x", function(datum, index) { return x(index) + barWidth; })
-  .attr("y", function(datum) { return height - y(datum.books); })
-  .attr("dx", -barWidth/2)
-  .attr("dy", "1.2em")
-  .attr("text-anchor", "middle")
-  .text(function(datum) { return datum.books;})
-  .attr("fill", "white");
+        x.domain(dataset.map(function (d) { return d.label; }));
+        y.domain([0, 100]); //sets y-axis to 100 to represent 100%
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")  //adds x-axis labels 
+            .call(xAxis);
 
-
-            
-
-        g.append("g")
-            .style("font", "15px Helvetica")
+        svg.append("g")
             .attr("class", "axis")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
-
-        g.append("g")
-            .attr("class", "axis")
-            //  .call(d3.axisLeft(y).ticks(null, "s"))
             .append("text")
             .attr("transform", "translate(" + (width / 3) + ", 15)")
-            //.attr("x", 2)
-            //.attr("y", y(y.ticks().pop()) + 0.5)
-            //.attr("dy", "0.32em")
             .style("font", "20px Helvetica")
             .attr("fill", "#000")
-            //.attr("font-family","Helvetica")
             .attr("font-weight", "bold")
             .attr("text-anchor", "start")
+            .attr("transform", "translate(200,-12)")  //200 centres the title, -10 moves chart title higher
             .text("Reports to ship by 31 March 2017");
 
+        var bar = svg.selectAll(".label")
+            .data(dataset)
+            .enter().append("g")
+            .attr("class", "g")
+            .attr("transform", function (d) { return "translate(" + x(d.label) + ",0)"; });
 
-            
+        var bar_enter = bar.selectAll("rect")
+            .data(function (d) { return d.values; })
+            .enter();
+        bar_enter.append("rect")
+            .attr("width", x.rangeBand())
+            .attr("y", function (d) { return y(d.y1); })
+            .attr("height", function (d) { return y(d.y0) - y(d.y1); })
+            .style("fill", function (d) { return color(d.name); });
+        bar_enter.append("text")
+            .text(function (d) { return d.name; }) //this retreaves the data point labels with their names
+            .attr("y", function (d) { return y(d.y1) + (y(d.y0) - y(d.y1)) / 2; })  //Change for horizontal data point label adjustment
+            //.attr("text-achor", "middle")
+            .attr("x", x.rangeBand() / 30)  //change # for vertical adjustment
+            //.style("fill", function (d) {
+            //    if (d.values = 0) { return "transparent" }
+            //    else { return "white" }             
+            //})
+            .style("font", "1px Helvetica")
+            .style("fill", '#ffffff')
+            .each(getSize)
+            .style("font-size", function (d) { return d.scale + "px"; });
 
-    });
-
-</script>
+        function getSize(d) {
+            var bbox = this.getBBox(),
+                cbbox = this.parentNode.getBBox(),
+                scale = Math.min(cbbox.width / (bbox.width / 0.8), cbbox.height / bbox.height); //change 0.8 to adjust for even longer labels
+            d.scale = scale;
+        }
+    </script>
+</body>

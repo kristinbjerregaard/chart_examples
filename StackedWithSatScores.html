@@ -203,8 +203,34 @@
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
+<<<<<<< HEAD
                 labels: ["New clients depositing [n=175]", "Existing clients depositing [n=175]", "Traders [n=350]", '', "All clients [n=700]"],
                 datasets: [{
+=======
+                labels: ["New clients depositing [n=175]", "Traders [n=350]", "Existing clients depositing [n=175]", '', "All clients [n=700]"],
+                datasets: [
+                    {
+                    type: 'line',
+                    connectNaNData: false,
+                    label: 'Composite Satisfaction Score',
+                    //remove lineTension to make smooth line
+                    lineTension: 0,
+                    //NaN values are ignored, i.e. not shown on chart
+                    data: [60, 70, 50, NaN, 77],
+                    fill: false,
+                    //updates the size of the data points
+                    pointRadius: 7,
+                    spanGaps: false,
+                    backgroundColor: [
+                        'rgba(254, 153, 0, 0.8)'
+                    ],
+                    //setting last number to 0.0 makes the connector lines transparent
+                    borderColor: [
+                        'rgba(254, 153, 0, 0.0)'
+                    ],
+                },
+                {    
+>>>>>>> 54f3c895bde346088d837575435a3a99b37b8d58
                     label: 'Very good',
                     data: [10, 20, 30, NaN, 20],
                     backgroundColor: [
@@ -299,6 +325,7 @@
                         'rgba(255, 255, 255, 0.8)',
                         'rgba(255, 255, 255, 0.8)'
                     ],
+<<<<<<< HEAD
                     borderWidth: 1
                 },
                 {
@@ -320,6 +347,9 @@
                     borderColor: [
                         'rgba(254, 153, 0, 0.0)'
                     ],
+=======
+                    borderWidth: 0
+>>>>>>> 54f3c895bde346088d837575435a3a99b37b8d58
                 }
                 ]
             },
