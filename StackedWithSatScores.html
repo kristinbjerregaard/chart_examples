@@ -23,26 +23,26 @@
                 // To only draw at the end of animation, check for easing === 1
                 var ctx = chart.ctx;
 
-                var meta = chart.getDatasetMeta(0);
-                if (!meta.hidden) {
-                    meta.data.forEach(function (element, index) {
+                var meta5 = chart.getDatasetMeta(0);
+                if (!meta5.hidden) {
+                    meta5.data.forEach(function (element, index) {
                         // Draw the text in black, with the specified font
-                        ctx.fillStyle = 'rgb(254, 254, 254)';
+                        ctx.fillStyle = 'rgb(254, 153, 0)';
 
-                        var fontSize = 14;
-                        var fontStyle = 'normal';
+                        var fontSize = 16;
+                        var fontStyle = 'bold';
                         var fontFamily = 'Helvetica';
                         ctx.font = Chart.helpers.fontString(fontSize, fontStyle,
                             fontFamily);
 
-                        // Just naively convert to string for now, adds % sign at the end, hides if values lower than 3%
-                        var dataString = (chart.data.datasets[0].data[index]) > 2.99 ? chart.data.datasets[0].data[index].toString() + "%" : "";
+                        // Just naively convert to string for now
+                        var dataString = chart.data.datasets[0].data[index].toString() + "%";
 
                         // Make sure alignment settings are correct
                         ctx.textAlign = 'center';
-                        ctx.textBaseline = 'top';
+                        ctx.textBaseline = 'middle';
 
-                        var padding = -15;
+                        var padding = 10;
                         var position = element.tooltipPosition();
                         ctx.fillText(dataString, position.x, position.y - (fontSize / 2) -
                             padding);
@@ -173,184 +173,132 @@
                             padding);
                     });
                 }
-                var meta5 = chart.getDatasetMeta(5);
-                if (!meta5.hidden) {
-                    meta5.data.forEach(function (element, index) {
-                        // Draw the text in black, with the specified font
-                        ctx.fillStyle = 'rgb(254, 153, 0)';
 
-                        var fontSize = 16;
-                        var fontStyle = 'bold';
-                        var fontFamily = 'Helvetica';
-                        ctx.font = Chart.helpers.fontString(fontSize, fontStyle,
-                            fontFamily);
-
-                        // Just naively convert to string for now
-                        var dataString = chart.data.datasets[5].data[index].toString() + "%";
-
-                        // Make sure alignment settings are correct
-                        ctx.textAlign = 'center';
-                        ctx.textBaseline = 'middle';
-
-                        var padding = 10;
-                        var position = element.tooltipPosition();
-                        ctx.fillText(dataString, position.x, position.y - (fontSize / 2) -
-                            padding);
-                    });
-                }
             }
         });
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-<<<<<<< HEAD
-                labels: ["New clients depositing [n=175]", "Existing clients depositing [n=175]", "Traders [n=350]", '', "All clients [n=700]"],
-                datasets: [{
-=======
                 labels: ["New clients depositing [n=175]", "Traders [n=350]", "Existing clients depositing [n=175]", '', "All clients [n=700]"],
                 datasets: [
                     {
-                    type: 'line',
-                    connectNaNData: false,
-                    label: 'Composite Satisfaction Score',
-                    //remove lineTension to make smooth line
-                    lineTension: 0,
-                    //NaN values are ignored, i.e. not shown on chart
-                    data: [60, 70, 50, NaN, 77],
-                    fill: false,
-                    //updates the size of the data points
-                    pointRadius: 7,
-                    spanGaps: false,
-                    backgroundColor: [
-                        'rgba(254, 153, 0, 0.8)'
-                    ],
-                    //setting last number to 0.0 makes the connector lines transparent
-                    borderColor: [
-                        'rgba(254, 153, 0, 0.0)'
-                    ],
-                },
-                {    
->>>>>>> 54f3c895bde346088d837575435a3a99b37b8d58
-                    label: 'Very good',
-                    data: [10, 20, 30, NaN, 20],
-                    backgroundColor: [
-                        'rgba(57, 71, 146, 0.8)',
-                        'rgba(57, 71, 146, 0.8)',
-                        'rgba(57, 71, 146, 0.8)',
-                        'rgba(100, 0, 0, 1.0)',
-                        'rgba(57, 71, 146, 0.8)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 255, 255, 0.8)',
-                        'rgba(255, 255, 255, 0.8)',
-                        'rgba(255, 255, 255, 0.8)',
-                        'rgba(255, 255, 255, 0.8)',
-                        'rgba(255, 255, 255, 0.8)',
-                        'rgba(255, 255, 255, 0.8)'
-                    ],
-                    //set borderwidth to 0 removes the border  
-                    borderWidth: 1
-                },
-                {
-                    label: 'Good',
-                    data: [20, 20, 20, NaN, 20],
-                    backgroundColor: [
-                        'rgba(189, 188, 232, 0.8)',
-                        'rgba(189, 188, 232, 0.8)',
-                        'rgba(189, 188, 232, 0.8)',
-                        'rgba(189, 188, 232, 0.8)',
-                        'rgba(189, 188, 232, 0.8)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 255, 255, 0.8)',
-                        'rgba(255, 255, 255, 0.8)',
-                        'rgba(255, 255, 255, 0.8)',
-                        'rgba(255, 255, 255, 0.8)',
-                        'rgba(255, 255, 255, 0.8)'
-                    ],
-                    borderWidth: 1
-                },
-                {
-                    label: 'Average',
-                    data: [20, 20, 20, NaN, 20],
-                    backgroundColor: [
-                        'rgba(190, 196, 151, 0.8)',
-                        'rgba(190, 196, 151, 0.8)',
-                        'rgba(190, 196, 151, 0.8)',
-                        'rgba(190, 196, 151, 0.8)',
-                        'rgba(190, 196, 151, 0.8)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 255, 255, 0.8)',
-                        'rgba(255, 255, 255, 0.8)',
-                        'rgba(255, 255, 255, 0.8)',
-                        'rgba(255, 255, 255, 0.8)',
-                        'rgba(255, 255, 255, 0.8)'
-                    ],
-                    borderWidth: 1
-                },
-                {
-                    label: 'Poor',
-                    data: [20, 20, 20, NaN, 20],
-                    backgroundColor: [
-                        'rgba(230, 182, 158, 0.8)',
-                        'rgba(230, 182, 158, 0.8)',
-                        'rgba(230, 182, 158, 0.8)',
-                        'rgba(230, 182, 158, 0.8)',
-                        'rgba(230, 182, 158, 0.8)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 255, 255, 0.8)',
-                        'rgba(255, 255, 255, 0.8)',
-                        'rgba(255, 255, 255, 0.8)',
-                        'rgba(230, 182, 158, 0.8)',
-                        'rgba(255, 255, 255, 0.8)'
-                    ],
-                    borderWidth: 1
-                },
-                {
-                    label: 'Very poor',
-                    data: [30, 20, 10, NaN, 20],
-                    backgroundColor: [
-                        'rgba(173, 56, 16, 0.8)',
-                        'rgba(173, 56, 16, 0.8)',
-                        'rgba(173, 56, 16, 0.8)',
-                        'rgba(173, 56, 16, 0.8)',
-                        'rgba(173, 56, 16, 0.8)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 255, 255, 0.8)',
-                        'rgba(255, 255, 255, 0.8)',
-                        'rgba(255, 255, 255, 0.8)',
-                        'rgba(255, 255, 255, 0.8)',
-                        'rgba(255, 255, 255, 0.8)'
-                    ],
-<<<<<<< HEAD
-                    borderWidth: 1
-                },
-                {
-                    type: 'line',
-                    connectNaNData: false,
-                    label: 'Composite Satisfaction Score',
-                    //remove lineTension to make smooth line
-                    lineTension: 0,
-                    //NaN values are ignored, i.e. not shown on chart
-                    data: [60, 70, 50, NaN, 77],
-                    fill: false,
-                    //updates the size of the data points
-                    pointRadius: 7,
-                    spanGaps: false,
-                    backgroundColor: [
-                        'rgba(254, 153, 0, 0.8)'
-                    ],
-                    //setting last number to 0.0 makes the connector lines transparent
-                    borderColor: [
-                        'rgba(254, 153, 0, 0.0)'
-                    ],
-=======
-                    borderWidth: 0
->>>>>>> 54f3c895bde346088d837575435a3a99b37b8d58
-                }
+                        type: 'line',
+                        connectNaNData: false,
+                        label: 'Composite Satisfaction Score',
+                        //remove lineTension to make smooth line
+                        lineTension: 0,
+                        //NaN values are ignored, i.e. not shown on chart
+                        data: [60, 70, 50, NaN, 77],
+                        fill: false,
+                        //updates the size of the data points
+                        pointRadius: 7,
+                        spanGaps: false,
+                        backgroundColor: [
+                            'rgba(254, 153, 0, 0.8)'
+                        ],
+                        //setting last number to 0.0 makes the connector lines transparent
+                        borderColor: [
+                            'rgba(254, 153, 0, 0.0)'
+                        ],
+                        borderWidth: 0
+                    },
+                    {
+                        label: 'Very good',
+                        data: [10, 20, 30, NaN, 20],
+                        backgroundColor: [
+                            'rgba(57, 71, 146, 0.8)',
+                            'rgba(57, 71, 146, 0.8)',
+                            'rgba(57, 71, 146, 0.8)',
+                            'rgba(100, 0, 0, 1.0)',
+                            'rgba(57, 71, 146, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 255, 255, 0.8)',
+                            'rgba(255, 255, 255, 0.8)',
+                            'rgba(255, 255, 255, 0.8)',
+                            'rgba(255, 255, 255, 0.8)',
+                            'rgba(255, 255, 255, 0.8)',
+                            'rgba(255, 255, 255, 0.8)'
+                        ],
+                        //set borderwidth to 0 removes the border  
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Good',
+                        data: [20, 20, 20, NaN, 20],
+                        backgroundColor: [
+                            'rgba(189, 188, 232, 0.8)',
+                            'rgba(189, 188, 232, 0.8)',
+                            'rgba(189, 188, 232, 0.8)',
+                            'rgba(189, 188, 232, 0.8)',
+                            'rgba(189, 188, 232, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 255, 255, 0.8)',
+                            'rgba(255, 255, 255, 0.8)',
+                            'rgba(255, 255, 255, 0.8)',
+                            'rgba(255, 255, 255, 0.8)',
+                            'rgba(255, 255, 255, 0.8)'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Average',
+                        data: [20, 20, 20, NaN, 20],
+                        backgroundColor: [
+                            'rgba(190, 196, 151, 0.8)',
+                            'rgba(190, 196, 151, 0.8)',
+                            'rgba(190, 196, 151, 0.8)',
+                            'rgba(190, 196, 151, 0.8)',
+                            'rgba(190, 196, 151, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 255, 255, 0.8)',
+                            'rgba(255, 255, 255, 0.8)',
+                            'rgba(255, 255, 255, 0.8)',
+                            'rgba(255, 255, 255, 0.8)',
+                            'rgba(255, 255, 255, 0.8)'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Poor',
+                        data: [20, 20, 20, NaN, 20],
+                        backgroundColor: [
+                            'rgba(230, 182, 158, 0.8)',
+                            'rgba(230, 182, 158, 0.8)',
+                            'rgba(230, 182, 158, 0.8)',
+                            'rgba(230, 182, 158, 0.8)',
+                            'rgba(230, 182, 158, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 255, 255, 0.8)',
+                            'rgba(255, 255, 255, 0.8)',
+                            'rgba(255, 255, 255, 0.8)',
+                            'rgba(230, 182, 158, 0.8)',
+                            'rgba(255, 255, 255, 0.8)'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Very poor',
+                        data: [30, 20, 10, NaN, 20],
+                        backgroundColor: [
+                            'rgba(173, 56, 16, 0.8)',
+                            'rgba(173, 56, 16, 0.8)',
+                            'rgba(173, 56, 16, 0.8)',
+                            'rgba(173, 56, 16, 0.8)',
+                            'rgba(173, 56, 16, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 255, 255, 0.8)',
+                            'rgba(255, 255, 255, 0.8)',
+                            'rgba(255, 255, 255, 0.8)',
+                            'rgba(255, 255, 255, 0.8)',
+                            'rgba(255, 255, 255, 0.8)'
+                        ],
+                        borderWidth: 1
+                    },
                 ]
             },
             options: {
