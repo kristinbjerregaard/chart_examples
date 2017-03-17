@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <title>Charts Tester</title>
@@ -48,36 +49,11 @@
                             padding);
                     });
                 }
-                var meta = chart.getDatasetMeta(0);
+                var meta = chart.getDatasetMeta(1);
                 if (!meta.hidden) {
                     meta.data.forEach(function (element, index) {
                         // Draw the text in black, with the specified font
                         ctx.fillStyle = 'rgb(254, 254, 254)';
-
-                        var fontSize = 14;
-                        var fontStyle = 'normal';
-                        var fontFamily = 'Helvetica';
-                        ctx.font = Chart.helpers.fontString(fontSize, fontStyle,
-                            fontFamily);
-
-                        // Just naively convert to string for now, adds % sign at the end, hides if values lower than 3%
-                        var dataString = (chart.data.datasets[0].data[index]) > 2.99 ? chart.data.datasets[0].data[index].toString() + "%" : "";
-
-                        // Make sure alignment settings are correct
-                        ctx.textAlign = 'center';
-                        ctx.textBaseline = 'top';
-
-                        var padding = -15;
-                        var position = element.tooltipPosition();
-                        ctx.fillText(dataString, position.x, position.y - (fontSize / 2) -
-                            padding);
-                    });
-                }
-                var meta1 = chart.getDatasetMeta(1);
-                if (!meta1.hidden) {
-                    meta1.data.forEach(function (element, index) {
-                        // Draw the text in black, with the specified font
-                        ctx.fillStyle = 'rgb(64, 64, 64)';
 
                         var fontSize = 14;
                         var fontStyle = 'normal';
@@ -98,9 +74,9 @@
                             padding);
                     });
                 }
-                var meta2 = chart.getDatasetMeta(2);
-                if (!meta2.hidden) {
-                    meta2.data.forEach(function (element, index) {
+                var meta1 = chart.getDatasetMeta(2);
+                if (!meta1.hidden) {
+                    meta1.data.forEach(function (element, index) {
                         // Draw the text in black, with the specified font
                         ctx.fillStyle = 'rgb(64, 64, 64)';
 
@@ -123,11 +99,11 @@
                             padding);
                     });
                 }
-                var meta3 = chart.getDatasetMeta(3);
-                if (!meta3.hidden) {
-                    meta3.data.forEach(function (element, index) {
+                var meta2 = chart.getDatasetMeta(3);
+                if (!meta2.hidden) {
+                    meta2.data.forEach(function (element, index) {
                         // Draw the text in black, with the specified font
-                        ctx.fillStyle = 'rgb(30, 30, 30)';
+                        ctx.fillStyle = 'rgb(64, 64, 64)';
 
                         var fontSize = 14;
                         var fontStyle = 'normal';
@@ -148,7 +124,32 @@
                             padding);
                     });
                 }
-                var meta4 = chart.getDatasetMeta(4);
+                var meta3 = chart.getDatasetMeta(4);
+                if (!meta3.hidden) {
+                    meta3.data.forEach(function (element, index) {
+                        // Draw the text in black, with the specified font
+                        ctx.fillStyle = 'rgb(30, 30, 30)';
+
+                        var fontSize = 14;
+                        var fontStyle = 'normal';
+                        var fontFamily = 'Helvetica';
+                        ctx.font = Chart.helpers.fontString(fontSize, fontStyle,
+                            fontFamily);
+
+                        // Just naively convert to string for now, adds % sign at the end, hides if values lower than 3%
+                        var dataString = (chart.data.datasets[4].data[index]) > 2.99 ? chart.data.datasets[4].data[index].toString() + "%" : "";
+
+                        // Make sure alignment settings are correct
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'top';
+
+                        var padding = -15;
+                        var position = element.tooltipPosition();
+                        ctx.fillText(dataString, position.x, position.y - (fontSize / 2) -
+                            padding);
+                    });
+                }
+                var meta4 = chart.getDatasetMeta(5);
                 if (!meta4.hidden) {
                     meta4.data.forEach(function (element, index) {
                         // Draw the text in black, with the specified font
@@ -161,7 +162,7 @@
                             fontFamily);
 
                         // Just naively convert to string for now, adds % sign at the end, hides if values lower than 3%
-                        var dataString = (chart.data.datasets[4].data[index]) > 2.99 ? chart.data.datasets[4].data[index].toString() + "%" : "";
+                        var dataString = (chart.data.datasets[5].data[index]) > 2.99 ? chart.data.datasets[5].data[index].toString() + "%" : "";
 
                         // Make sure alignment settings are correct
                         ctx.textAlign = 'center';
@@ -190,7 +191,6 @@
                         //NaN values are ignored, i.e. not shown on chart
                         data: [60, 70, 50, NaN, 77],
                         fill: false,
-                        //updates the size of the data points
                         pointRadius: 7,
                         spanGaps: false,
                         backgroundColor: [
