@@ -43,7 +43,7 @@
                             ctx.textAlign = 'center';
                             ctx.textBaseline = 'middle';
 
-                            var padding = 5;
+                            var padding = -7;
                             var position = element.tooltipPosition();
                             ctx.fillText(dataString, position.x, position.y - (fontSize / 2) -
                                 padding);
@@ -53,7 +53,7 @@
             }
         });
         var myChart = new Chart(ctx, {
-            type: 'bar',
+            type: 'horizontalBar',
             data: {
                 labels: ["Very poor", "Poor", "Average", "Good", "Very good"],
                 datasets: [{
@@ -122,6 +122,7 @@
                 },
                 {
                     label: 'All clients [n=700]',
+                    type: 'horizontalBar',
                     data: [10, 19, 3, 0, 5],
                     backgroundColor: [
                         'rgba(128, 128, 128, 0.8)',
@@ -158,14 +159,17 @@
                             //min: 0,
                             //max: 100,
                             callback: function (value) {
-                                return value + "%"
+                                return value
                             }
                         }
                     }],
                     xAxes: [{
                         stacked: false,
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                                                        callback: function (value) {
+                                return value + '%'
+                            }
                         }
                     }]
 

@@ -8,12 +8,14 @@
         position: left;
     }
 
+
     svg {
         width: 100%;
         height: 100%;
         position: center;
     }
     /*makes x-axis line filled without color*/
+
 
     .axis path,
     .axis line {
@@ -50,10 +52,10 @@
             });
         }
 
-      dataset = [
-          { label: "To Be Completed", "2016 Retirement Planner Report with very long label": 10, "2016 AMP Capital SMSF Custom": 0, "2016 Australia FX Report": 0, "2016 Margin Lending Planner": 40, "2016 FPA Custom Trackers": 10 },
-          { label: "Completed", "2016 Retirement Planner Report with very long label": 0, "2016 AMP Capital SMSF Custom": 10, "2016 Australia FX Report": 20, "2016 Margin Lending Planner": 0, "2016 FPA Custom Trackers": 0 },
-      ]; 
+        dataset = [
+            { label: "To Be Completed", "2016 Retirement Planner Report with very long label": 10, "2016 AMP Capital SMSF Custom": 0, "2016 Australia FX Report": 0, "2016 Margin Lending Planner": 40, "2016 FPA Custom Trackers": 10 },
+            { label: "Completed", "2016 Retirement Planner Report with very long label": 0, "2016 AMP Capital SMSF Custom": 10, "2016 Australia FX Report": 20, "2016 Margin Lending Planner": 0, "2016 FPA Custom Trackers": 0 },
+        ];
 
         var margin = { top: 40, right: 231, bottom: 140, left: 40 },
             width = 1000 - margin.left - margin.right,
@@ -124,17 +126,14 @@
             .attr("height", function (d) { return y(d.y0) - y(d.y1); })
             .style("fill", function (d) { return color(d.name); });
         bar_enter.append("text")
-            .text(function (d) { return d.name; }) //this retreaves the data point labels with their names
-            .attr("y", function (d) { return y(d.y1) + (y(d.y0) - y(d.y1)) / 2; })  //Change for horizontal data point label adjustment
+            .text(function (d) { return d.name; }) //this retreaves the data point labels with their names        
+            .attr("y", function (d) { return y(d.y1) + (y(d.y0) - y(d.y1)) / 2; })  //Change for horizontal data point label adjustment            
             .attr("x", x.rangeBand() / 30)  //change # for vertical adjustment
-            //.style("fill", function (d) {
-            //    if (d.values = 0) { return "transparent" }
-            //    else { return "white" }             
-            //})
             .style("font", "1px Helvetica")
             .style("fill", '#ffffff')
+            //.style("fill", function (d) { if (data==0) {return "#ffffff"} else {return "black"}}) //not working;
             .each(getSize)
-            .style("font-size", function (d) { return d.scale + "px"; });
+            .style("font-size", function (d) { return d.scale + "px"; })
 
         function getSize(d) {
             var bbox = this.getBBox(),
