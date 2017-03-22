@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <title>Charts Tester</title>
+</head>
+
+<body>
+
+    <script src="Chart.bundle.min.js"></script>
+    <h1 p style="font-family: Arial">Custom Tracker</h1>
+    <h2 p style="font-family: Arial">Report as at: <span id="datetime"></span></h2>
+    <script>
+        var dt = new Date();
+        document.getElementById("datetime").innerHTML = dt.toLocaleDateString();
+    </script>
+
+    <canvas id="myChart" width="200" height="50"></canvas>
+    <script>
+        var ctx = document.getElementById("myChart").getContext("2d");
+        // Define a plugin to provide data labels
+        Chart.plugins.register({
+            afterDatasetsDraw: function (chart, easing) {
+                // To only draw at the end of animation, check for easing === 1
+                var ctx = chart.ctx;
+
+                chart.data.datasets.forEach(function (dataset, i) {
+                    var meta = chart.getDatasetMeta(i);
+                    if (!meta.hidden) {
+                        meta.data.forEach(function (element, index) {
+                            // Draw the text in black, with the specified font
+                            ctx.fillStyle = 'rgb(64, 64, 64)';
+
+                            var fontSize = 14;
+                            var fontStyle = 'normal';
+                            var fontFamily = 'Arial';
+                            ctx.font = Chart.helpers.fontString(fontSize, fontStyle,
+                                fontFamily);
+
+                            // Just naively convert to string for now
+                            var dataString = (chart.data.datasets[i].data[index]) > 2.99 ? chart.data.datasets[i].data[index].toString() + "%" : "";
+
+                            // Make sure alignment settings are correct
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+
+                            var padding = 5;
+                            var position = element.tooltipPosition();
+                            ctx.fillText(dataString, position.x, position.y - (fontSize / 2) -
+                                padding);
+                        });
+                    }
+                });
+            }
+        });
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Very poor", "Poor", "Average", "Good", "Very good"],
+                datasets: [{
+                    label: 'New clients depositing [n=175]',
+                    data: [10, 19, 3, 0, 5],
+                    //pointHoverBackgroundColor: 'rgba(57, 71, 146, 0.8',
+                    backgroundColor: [
+                        'rgba(58, 62, 150, 0.8)',
+                        'rgba(58, 62, 150, 0.8)',
+                        'rgba(58, 62, 150, 0.8)',
+                        'rgba(58, 62, 150, 0.8)',
+                        'rgba(58, 62, 150, 0.8)',
+                        'rgba(58, 62, 150, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(58, 62, 150, 0.8)',
+                        'rgba(58, 62, 150, 0.8)',
+                        'rgba(58, 62, 150, 0.8)',
+                        'rgba(58, 62, 150, 0.8)',
+                        'rgba(58, 62, 150, 0.8)',
+                        'rgba(58, 62, 150, 0.8)'
+                    ],
+                    borderWidth: 0
+                },
+                {
+                    label: 'Existing clients depositing [n=175]',
+                    data: [10, 19, 3, 0, 5],
+                    backgroundColor: [
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(92, 203, 9, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(189, 188, 232, 0.8)',
+                        'rgba(92, 203, 9, 0.8)'
+                    ],
+                    borderWidth: 0
+                },
+                {
+                    label: 'Traders [n=350]',
+                    data: [15, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(24, 184, 237, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(230, 182, 158, 0.8)',
+                        'rgba(24, 184, 237, 0.8)'
+                    ],
+                    borderWidth: 0
+                },
+                {
+                    label: 'All clients [n=700]',
+                    data: [10, 19, 3, 0, 5],
+                    backgroundColor: [
+                        'rgba(128, 128, 128, 0.8)',
+                        'rgba(128, 128, 128, 0.8)',
+                        'rgba(128, 128, 128, 0.8)',
+                        'rgba(128, 128, 128, 0.8)',
+                        'rgba(128, 128, 128, 0.8)',
+                        'rgba(128, 128, 128, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(128, 128, 128, 0.8)',
+                        'rgba(128, 128, 128, 0.8)',
+                        'rgba(128, 128, 128, 0.8)',
+                        'rgba(128, 128, 128, 0.8)',
+                        'rgba(128, 128, 128, 0.8)',
+                        'rgba(128, 128, 128, 0.8)'
+                    ],
+                    borderWidth: 0
+                },
+                ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    fontSize: 18,
+                    text: 'How would you rate this provider overall?'
+                },
+                scales: {
+                    yAxes: [{
+                        stacked: false,
+                        ticks: {
+                            beginAtZero: true,
+                            //below code gives 0-100% percentage y-axis  
+                            //min: 0,
+                            //max: 100,
+                            callback: function (value) {
+                                return value + "%"
+                            }
+                        },
+                        scaleLabel: { //hides horizontal gridlines
+                            display: true
+                        },
+                        gridLines: {
+                            display: false,
+                        },
+                    }],
+                    xAxes: [{
+                        stacked: false,
+                        ticks: {
+                            beginAtZero: true,
+                        },
+                        scaleLabel: { //hides vertical gridlines
+                            display: true
+                        },
+                        gridLines: {
+                            display: false,
+                        },
+                    }]
+
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>
