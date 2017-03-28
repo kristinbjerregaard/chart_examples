@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="description" content="Drawing Shapes w/ D3 - " />
+    <meta charset="utf-8">
+    <title>D3 charts</title>
+    <script src="http://d3js.org/d3.v3.min.js">
+        charset = "utf-8"
+    </script>
+
+    <body>
+        <script>
+            //barchart
+            var w = 500; //width of chart area
+            var h = 200; //height of chart area
+            var padding = 20; //padding between bars
+            var dataset = [5, 10, 14, 20, 25, 11, 25, 33, 18, 7];
+            var svg = d3.select("body")
+                .append("svg")
+                .attr("width", w)
+                .attr("height", h);
+            function colorPicker(v) {
+                if (v <= 20) { return "#888888"; }
+                else if (v > 20) { return "#337788"; }
+            }
+
+            svg.selectAll("rect")
+                .data(dataset)
+                .enter()
+                .append("rect")
+                .attr({
+                    x: function (d, i) { return i * (w / dataset.length); },
+                    y: function (d) { return h - (d * 4); }, //places 1st bar at y height of 200-(5*4)=180 from the top, last bar at 200-(25*5)=100 from the top  
+                    width: w / dataset.length - padding,
+                    height: function (d) { return d * 4; }, //places 1st bar at x position of 5*4=20, last bar at 25*4=100
+                    fill: function (d) { return colorPicker(d); } //colours set depending on values (e.g. too highlight low valuse) 
+                    // fill: function (d) { return "rgb(" + (d * 10) + ",20,200)"; } //colours gradient 
+                });
+
+            svg.selectAll("text")
+                .data(dataset)
+                .enter()
+                .append("text")
+                .text(function (d) { return d; })
+                .attr({
+                    "text-anchor": "middle",
+                    x: function (d, i) { return i * (w / dataset.length) + (w / dataset.length - padding) / 2; }, //similar to position of rectangles, but makes labels centred
+                    y: function (d) { return h - (d * 4) - 6; }, //similar to position of rectangles
+                    // y: function (d) { return h- (d * 4) + 14; } //similar to position of rectangles. Adds 14, which is font size, to have labels inside bars
+                    fill: function (d) { return colorPicker(d); }, //colours set depending on values (e.g. too highlight low valuse).     
+                    "font-family": "helvetica", //css
+                    "font-size": 14 //css
+                });
+        </script>
+    </body>
+</html>

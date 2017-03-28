@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <title>Charts Tester</title>
@@ -161,16 +162,29 @@
                             callback: function (value) {
                                 return value
                             }
-                        }
+                        },
+                        scaleLabel: {
+                            display: true
+                        },
+                        gridLines: {//hides vertical gridlines
+                            display: false,
+                        },
                     }],
                     xAxes: [{
+                        display: false,
                         stacked: false,
                         ticks: {
                             beginAtZero: true,
-                                                        callback: function (value) {
+                            callback: function (value) {
                                 return value + '%'
                             }
-                        }
+                        },
+                        scaleLabel: {
+                            display: true
+                        },
+                        gridLines: {//hides vertical gridlines
+                            display: false,
+                        },
                     }]
 
                 }

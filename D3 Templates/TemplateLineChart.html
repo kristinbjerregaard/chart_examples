@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="description" content="Drawing Shapes w/ D3 - " />
+    <meta charset="utf-8">
+    <title>D3 charts</title>
+    <script src="http://d3js.org/d3.v3.min.js">
+        charset = "utf-8"
+    </script>
+
+    <body>
+        <script>
+            //line chart
+            var w = 600; //width of chart area
+            var h = 400; //height of chart area
+            monthlySales = [
+                { "month": 10, "sales": 120 },
+                { "month": 20, "sales": 233 },
+                { "month": 30, "sales": 152 },
+                { "month": 40, "sales": 216 },
+                { "month": 50, "sales": 127 },
+                { "month": 60, "sales": 126 },
+                { "month": 70, "sales": 114 },
+                { "month": 80, "sales": 138 },
+            ];
+            var lineFun = d3.svg.line()
+                .x(function (d) { return d.month * 3; }) //the *3 number makes line longer
+                .y(function (d) { return h - d.sales; }) //without h- the chart would be upside down
+                .interpolate("linear"); //type of line chart. "basis" for smooth line
+
+            var svg = d3.select("body")
+                .append("svg")
+                .attr("width", w)
+                .attr("height", h);
+
+            var viz = svg.append("path") //append a path, instead of rectangle or circle
+                .attr({
+                    d: lineFun(monthlySales),
+                    "stroke": "blue",
+                    "stroke-width": 2,
+                    "fill": "none"
+                });
+
+            //add labels
+            var labels = svg.selectAll("text")
+                .data(monthlySales)
+                .enter()
+                .append("text")
+                .text(function (d) { return d.sales; })
+                .attr({
+                    "text-anchor": "start", //middle or end
+                    x: function (d) { return d.month * 3 - 15; }, //same as x position of line
+                    y: function (d) { return h - d.sales - 5; }, //ssame as y position of line
+                    "font-family": "helvetica", //css
+                    "font-size": 14, //css
+                    "fill": "#666666", //color labels with css
+                    "font-weight": function (d, i) {
+                        if (i == (monthlySales.length - 1)) { //bolds only last label
+                            return "bold";
+                        }
+                        else {
+                            return "normal";
+                        }
+                    }
+                });
+        </script>
+    </body>
+
+</html>

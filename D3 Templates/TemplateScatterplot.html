@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="description" content="Drawing Shapes w/ D3 - " />
+    <meta charset="utf-8">
+    <title>D3 charts</title>
+    <script src="http://d3js.org/d3.v3.min.js">
+        charset = "utf-8"
+    </script>
+
+    <body>
+        <script>
+            //line chart
+            var w = 600; //width of chart area
+            var h = 400; //height of chart area
+            monthlySales = [
+                { "month": 10, "sales": 120 },
+                { "month": 20, "sales": 233 },
+                { "month": 30, "sales": 152 },
+                { "month": 40, "sales": 216 },
+                { "month": 50, "sales": 127 },
+                { "month": 60, "sales": 126 },
+                { "month": 70, "sales": 114 },
+                { "month": 80, "sales": 138 },
+            ];
+
+            //conditional color function for labels    
+            function salesKPI(d) {
+                if (d >= 200) { return "#33CC66"; }
+                else if (d < 200) { return "#666666"; }
+            }
+
+            //function to show min max circles or all
+            function showMinMax(ds, col, val, type) {
+                var max = d3.max(ds, function (d) { //ds for dataset
+                    return d[col];
+                }); //or d.sales
+                var min = d3.min(ds, function (d) { //ds for dataset
+                    return d[col];
+                });
+                if (type == 'minmax' && (val == max || val == min)) {
+                    return val;
+                }
+                else {
+                    if (type == 'all') {
+                        return val;
+                    }
+                }
+            }
+
+            var svg = d3.select("body")
+                .append("svg")
+                .attr("width", w)
+                .attr("height", h);
+
+            var dots = svg.selectAll("circle")
+                .data(monthlySales)
+                .enter()
+                .append("circle")
+                .text(function (d) { return d.sales; })
+                .attr({
+                    // "text-anchor": "start", //middle or end
+                    cx: function (d) { return d.month * 3; }, //same as x position of line
+                    cy: function (d) { return h - d.sales; }, //ssame as y position of line
+                    r: 10,
+                    "fill": function (d) { return salesKPI(d.sales); } //color circles 
+                });
+
+            //add labels
+            var labels = svg.selectAll("text")
+                .data(monthlySales)
+                .enter()
+                .append("text")
+                .text(function (d) { return showMinMax(monthlySales, 'sales', d.sales, 'minmax'); }) //dataset, column, values, function - change to all to see all values
+                .attr({
+                    "text-anchor": "end", //middle, start or end
+                    x: function (d) { return (d.month * 3) - 12; }, //same as x position of line
+                    y: function (d) { return h - d.sales + 4; }, //same as y position of line
+                    "font-family": "helvetica", //css
+                    "font-size": 14, //css
+                    "fill": "#666666", //color labels with css
+                });
+        </script>
+    </body>
+
+</html>

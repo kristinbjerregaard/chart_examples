@@ -7,7 +7,7 @@
 
 <body>
 
-    <script src="Chart.bundle.min.js"></script>
+    <script src="../Chart.bundle.min.js"></script>
     <h1 p style="font-family: Arial">Custom Tracker</h1>
     <h2 p style="font-family: Arial">Report as at: <span id="datetime"></span></h2>
     <script>
@@ -55,7 +55,7 @@
         });
         var myChart = new Chart(ctx, {
             type: 'bar',
-            data: {
+                 data: {
                 labels: ["Very poor", "Poor", "Average", "Good", "Very good"],
                 datasets: [{
                     label: 'New clients depositing [n=175]',
@@ -145,6 +145,11 @@
                 ]
             },
             options: {
+                       //scaleOverride: true, scaleSteps: 1, scaleStartValue: 0, scaleStepWidth: Math.ceil(max / step), //this should change the max scale to be slightly above max value
+                legend: {
+                    display: true,
+                    padding: 100
+                },
                 title: {
                     display: true,
                     fontSize: 18,
@@ -152,6 +157,7 @@
                 },
                 scales: {
                     yAxes: [{
+                        display: false, //true to show y-axis
                         stacked: false,
                         ticks: {
                             beginAtZero: true,
@@ -182,7 +188,7 @@
                         },
                     }]
 
-                }
+                },
             }
         });
     </script>

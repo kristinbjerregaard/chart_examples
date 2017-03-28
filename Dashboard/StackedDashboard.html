@@ -8,15 +8,12 @@
         position: left;
     }
 
-
     svg {
         width: 100%;
         height: 100%;
         position: center;
     }
     /*makes x-axis line filled without color*/
-
-
     .axis path,
     .axis line {
         fill: none;
@@ -26,31 +23,30 @@
 <body>
 
     <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.7.0/d3-legend.min.js"></script>
     <script>
-        function wrap(text, width) {
-            text.each(function () {
-                var text = d3.select(this),
-                    words = text.text().split(/\s+/).reverse(),
-                    word,
-                    line = [],
-                    lineNumber = 0,
-                    lineHeight = 1.1, // ems
-                    y = text.attr("y"),
-                    dy = parseFloat(text.attr("dy")),
-                    tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
-                while (word = words.pop()) {
-                    line.push(word);
-                    tspan.text(line.join(" "));
-                    if (tspan.node().getComputedTextLength() > width) {
-                        line.pop();
-                        tspan.text(line.join(" "));
-                        line = [word];
-                        tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
-                    }
-                }
-            });
-        }
+        // function wrap(text, width) {
+        //     text.each(function () {
+        //         var text = d3.select(this),
+        //             words = text.text().split(/\s+/).reverse(),
+        //             word,
+        //             line = [],
+        //             lineNumber = 0,
+        //             lineHeight = 1.1, // ems
+        //             y = text.attr("y"),
+        //             dy = parseFloat(text.attr("dy")),
+        //             tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+        //         while (word = words.pop()) {
+        //             line.push(word);
+        //             tspan.text(line.join(" "));
+        //             if (tspan.node().getComputedTextLength() > width) {
+        //                 line.pop();
+        //                 tspan.text(line.join(" "));
+        //                 line = [word];
+        //                 tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+        //             }
+        //         }
+        //     });
+        // }
 
         dataset = [
             { label: "To Be Completed", "2016 Retirement Planner Report with very long label": 10, "2016 AMP Capital SMSF Custom": 0, "2016 Australia FX Report": 0, "2016 Margin Lending Planner": 40, "2016 FPA Custom Trackers": 10 },
@@ -113,7 +109,8 @@
 
         var bar = svg.selectAll(".label")
             .data(dataset)
-            .enter().append("g")
+            .enter()
+            .append("g")
             .attr("class", "g")
             .attr("transform", function (d) { return "translate(" + x(d.label) + ",0)"; });
 
@@ -131,9 +128,9 @@
             .attr("x", x.rangeBand() / 30)  //change # for vertical adjustment
             .style("font", "1px Helvetica")
             .style("fill", '#ffffff')
-            //.style("fill", function (d) { if (data==0) {return "#ffffff"} else {return "black"}}) //not working;
             .each(getSize)
-            .style("font-size", function (d) { return d.scale + "px"; })
+            .style("font-size", function (d) { return d.scale + "px"; });
+        // .style("fill", function (d) { return labelColor(d); }) //not working;
 
         function getSize(d) {
             var bbox = this.getBBox(),
