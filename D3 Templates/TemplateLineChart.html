@@ -14,16 +14,16 @@
             //line chart
             var w = 600; //width of chart area
             var h = 400; //height of chart area
-            monthlySales = [
-                { "month": 10, "sales": 120 },
-                { "month": 20, "sales": 233 },
-                { "month": 30, "sales": 152 },
-                { "month": 40, "sales": 216 },
-                { "month": 50, "sales": 127 },
-                { "month": 60, "sales": 126 },
-                { "month": 70, "sales": 114 },
-                { "month": 80, "sales": 138 },
-            ];
+
+            var ds;
+            d3.csv("monthlySales.csv", function(error,data){
+                if(error){
+                    console.log(error);
+                } else{
+                    console.log(data);
+                    ds=data;
+                }
+        
             var lineFun = d3.svg.line()
                 .x(function (d) { return d.month * 3; }) //the *3 number makes line longer
                 .y(function (d) { return h - d.sales; }) //without h- the chart would be upside down
@@ -36,15 +36,15 @@
 
             var viz = svg.append("path") //append a path, instead of rectangle or circle
                 .attr({
-                    d: lineFun(monthlySales),
+                    d: lineFun(ds),
                     "stroke": "blue",
                     "stroke-width": 2,
                     "fill": "none"
                 });
 
-            //add labels
+            // add labels
             var labels = svg.selectAll("text")
-                .data(monthlySales)
+                .data(ds)
                 .enter()
                 .append("text")
                 .text(function (d) { return d.sales; })
@@ -56,7 +56,7 @@
                     "font-size": 14, //css
                     "fill": "#666666", //color labels with css
                     "font-weight": function (d, i) {
-                        if (i == (monthlySales.length - 1)) { //bolds only last label
+                        if (i == (ds.length - 1)) { //bolds only last label
                             return "bold";
                         }
                         else {
@@ -64,6 +64,7 @@
                         }
                     }
                 });
+            });
         </script>
     </body>
 
